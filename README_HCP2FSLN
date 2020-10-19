@@ -1,0 +1,133 @@
+# ------------------------------------------------------------------------------------
+# READ ME - HCPPipelines_to_FSLNetsAnalysis
+# ------------------------------------------------------------------------------------
+#
+# ## Contents
+#
+# 1. Required Files and Folders
+# 2. Processes
+# 3. Usage Instructions
+# 4. Worth Noting
+# 5. Explanations
+#
+# ------------------------------------------------------------------------------------
+# ### Required Files and Folders
+# ------------------------------------------------------------------------------------
+# Required Files and Folders come packaged in fMRI_Connectivity_Analysis:
+# (should be emphasised that these are only the files and folder required by the pipeline for it to be functional).
+#
+# fMRI_Connectivity_Analysis:
+#
+#       BashScripts:
+#               CopySubData.sh
+#               FSLNetsAnalysis.sh
+#               HCPPipelines_to_FSLNetsAnalysis.sh
+#               IcaFixProcessingBatch.sh
+#               Pre_FSLNetsAnalysis_Pipeline.sh
+#               SetupFile.sh
+#               Struc_and_fMRI_Pipeline.sh
+#               jobidICAFIXpipe
+#               jobidfMRISurfaceStrPipe
+#
+#       FSLNetsAnalysis_Out:
+#               FP_Correlation:
+#               figures:
+#               matSaves:
+#               netwebs:
+#
+#       MatlabScripts:
+#               FSLNetsAnalysis.m
+#               dispCrossSubComps.m
+#               importCount.m
+#               nets_netweb.m
+#               saveFigure.m
+#
+#       Pre_FSLNetsAnalysis_Out:
+#               L.dummy.pconn.nii
+#               R.dummy.pconn.nii
+#               converted_to_text_ptseries
+#               ptseries
+#               transposed_ptseries
+#
+#       comparisonFiles:
+#               count.txt
+#               design.mat
+#               design.txt
+#               excluded.txt
+#               unpaired_ttest_1con.con
+#
+#       dLabel_Files:
+#               Left_hemisphere_dlabel_file
+#               Right_hemisphere_dlabel_file
+#
+#       log_files:
+#               HCPPipelines_to_FSLNetsAnalysis output and error log files.
+#               IcaFixProcessingBatch output and error log files.
+#               Struc_and_fMRI_Pipeline output and error log files.
+#
+#       netjs: (for producing netweb visualisations)
+#               data:
+#               index.html
+#               js:
+#
+#       subjectIds:
+#               UKBB_Full:
+#                       FSjids_sids.txt
+#                       ICAjids_sids.txt
+#                       PostFSjids_sids.txt
+#                       PreFSjids_sids.txt
+#                       dKnow.txt
+#                       fMRISjids_sids.txt
+#                       fMRIVjids_sids.txt
+#                       lastRun.txt
+#                       n0.txt
+#                       noAnswer.txt
+#                       noEntry.txt
+#                       toBeProcessed.txt
+#                       y11_all.txt
+#                       y12_alot.txt
+#                       y13_some.txt
+#                       y14_not_now.txt
+#
+#       tin_data.csv
+#
+#       toolbox:
+#               cifti:
+#               ft_cifti
+#               libsvm-3.24
+#
+# ------------------------------------------------------------------------------------
+# ### Process:
+#  ------------------------------------------------------------------------------------
+#
+# 1. Subject List Constructor runs through potential subjects in the text file
+#    lists y11_all.txt and n0.txt and adds subjects id to a space separated string
+#    of id's if the subject possesses the required files and the files have not
+#    already been copied from the subjects source directory to subject specific
+#    study folder. This is done until the number of subjects specified by the user
+#    in SetupFile.sh have been added from both yes and no categories to the string.
+#
+# 2. Space separated string of id's is passed to Copy Subject Data process for it
+#    to copy the required files from the subjects source directory to a subject
+#    specific study folder.
+#
+# 3. HCP Pipelines: Structural, Functional and ICAFIX are run on the subjects
+#    added to the string of id's using files copied over to subjects specific
+#    study folder.
+#
+# 4. FSLNets PreProcessing Pipeline extracts each subjects parcellated time series
+#    and converts it to the format used by FSLNets nets_load function which
+#    involves transposing the time series and converting the transpose to text.
+#    A design matrix is then created and any newly processed id's are removed from
+#    the y11_all.txt and n0.txt lists of potential id's yet to be processed.
+#
+# 5. FSLNets Analysis is ran to estimate the connectivity between different regions
+#    of interest and run cross-subject comparision between tinnitus and non-tinnitus
+#    groups. (Should be noted that FSLNetsAnalysis.m is the script that does the
+#    work, FSLNetsAnalysis.sh is a wrapper script used for convenience to submit
+#    the job to SLURM).
+#
+# ------------------------------------------------------------------------------------
+# ### Usage Instructions:
+# ------------------------------------------------------------------------------------
+#
