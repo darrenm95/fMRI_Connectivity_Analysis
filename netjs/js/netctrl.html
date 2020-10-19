@@ -1,0 +1,48 @@
+<div>
+  <label for="thresholdIdx">Threshold network by</label><br>
+  <select id="thresholdIdx"></select><br>
+  <hr>
+
+  {{#thresholdValues}}
+  <label for="thresholdValue{{index}}">{{label}}</label><br>
+  {{minVal}}<input id="thresholdValue{{index}}" type="range" min="{{minVal}}" max="{{maxVal}}" step="0.05">{{maxVal}}<br>
+  <label id="currentThresholdValue{{index}}"></label>
+  <hr>
+  {{/thresholdValues}}
+
+
+
+
+
+
+  <label for="numClusters">Number of clusters</label><br>
+  <span>1<input id="numClusters" type="range" min="1" max="19"  step="1">19</span><br>
+  <label id="currentNumClusters"></label>
+  <hr>
+
+  <label for="edgeColourIdx">Colour edges by</label><br>
+  <select id="edgeColourIdx"></select><br>
+  <span id="edgeColourBar"></span>
+  <hr>
+
+  <label for="edgeWidthIdx">Scale edge width by</label><br>
+  <select id="edgeWidthIdx"></select><br>
+  <span id="edgeWidthLegend"></span>
+  <hr>
+
+  <label for="nodeColourIdx">Colour nodes by</label><br>
+  <select id="nodeColourIdx"></select><br><br>
+  <hr>
+
+ <label for="nodeNameIdx">Name nodes by</label><br>
+  <select id="nodeNameIdx"></select><br><br>
+  <hr>
+
+  <label for="highlightNetwork">Highlight network</label><br>
+  <input type="checkbox" id="highlightNetwork"></input>
+  <hr>
+
+  <label for="showSubNetwork">Show sub-network</label><br>
+  <span id="showSubNetwork"></span>
+  <hr>
+</div>

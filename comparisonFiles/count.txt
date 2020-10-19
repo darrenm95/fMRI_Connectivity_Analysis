@@ -1,0 +1,3 @@
+Number of participants who answered 'Yes, now most or all of the time' : 360
+Number of participants who answered 'No, never' : 527
+Number of participants who were excluded from the analysis : 0
